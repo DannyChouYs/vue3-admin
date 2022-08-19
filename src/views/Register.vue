@@ -2,15 +2,52 @@
     <div class="register">
         <section class="form-container">
             <div class="manage-tip">
-                <span class="title">后台管理系统</span>
+                <span class="title">後台管理系統</span>
+                <el-form v-model="registerUser" class="registerForm" label-width="80px">
+                    <el-form-item label="用户名" prop="name">
+                        <el-input v-model="registerUser.name" placeholder="请输入用户名"></el-input>
+                    </el-form-item>
+                    <el-form-item label="邮箱" prop="email">
+                        <el-input v-model="registerUser.email" placeholder="请输入邮箱"></el-input>
+                    </el-form-item>
+                    <el-form-item label="密码" prop="password">
+                        <el-input v-model="registerUser.password" placeholder="请输入密码" type="password"></el-input>
+                    </el-form-item>
+                    <el-form-item label="确认密码" prop="password2">
+                        <el-input v-model="registerUser.password2" placeholder="请确认密码" type="password"></el-input>
+                    </el-form-item>
+                    <el-form-item label="选择身份">
+                        <el-select v-model="registerUser.identity" placeholder="选择身份">
+                            <el-option label="管理員" value="manager"></el-option>
+                            <el-option label="員工" value="employee"></el-option>
+                        </el-select>
+                    </el-form-item>
+
+                    <el-form-item>
+                        <el-button @click="handleSubmit" class="submit-btn">註冊</el-button>
+                    </el-form-item>
+                </el-form>
             </div>
         </section>
     </div>
 </template>
 
-<script></script>
+<script setup lang="ts">
+import { ref } from 'vue';
+import { registerType } from '../utils/types';
+const registerUser = ref<registerType>({
+    name: 'Danny',
+    email: '27732357@qq.com',
+    password: '321321',
+    password2: '321321',
+    identity: '管理員'
+});
+const handleSubmit = () => {
+    console.log(registerUser.value);
+};
+</script>
 
-<style scoped>
+<style>
 .register {
     position: relative;
     width: 100%;
@@ -33,5 +70,15 @@
     font-weight: bold;
     font-size: 26px;
     color: #fff;
+}
+.registerForm {
+    margin-top: 20px;
+    background-color: #fff;
+    padding: 20px 40px 20px 20px;
+    border-radius: 5px;
+    box-shadow: 0px 5px 10px #cccc;
+}
+.submit-btn {
+    width: 100%;
 }
 </style>
