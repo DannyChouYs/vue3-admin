@@ -6,7 +6,8 @@
 
 <style>
 html,
-body {
+body,
+#app {
     width: 100%;
     height: 100%;
 }
