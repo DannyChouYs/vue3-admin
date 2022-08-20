@@ -45,7 +45,11 @@
 import { ref, reactive } from 'vue';
 import { registerType } from '../utils/types';
 import type { FormInstance, FormRules } from 'element-plus';
+import { ElMessage } from 'element-plus';
 import axios from 'axios';
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
 
 const registerUser = ref<registerType>({
     name: 'tester',
@@ -99,10 +103,22 @@ const submitForm = async (formEl: FormInstance | undefined) => {
     if (!formEl) return;
     await formEl.validate(async (valid, fields) => {
         if (valid) {
-            const { data } = await axios.post('api/users/register', registerUser.value);
+            const data = await axios.post('api/users/register', registerUser.value);
             console.log('data', data);
+
+            if (data.status === 200) {
+                ElMessage({
+                    message: '註冊成功',
+                    type: 'success'
+                });
+                setTimeout(() => {
+                    router.push('/');
+                }, 3000);
+            }
+
+            // router.push('/');
         } else {
-            console.log('error submit!', fields);
+            ElMessage.error('註冊失敗！');
         }
     });
 };
