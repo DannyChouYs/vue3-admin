@@ -45,6 +45,7 @@
 import { ref, reactive } from 'vue';
 import { registerType } from '../utils/types';
 import type { FormInstance, FormRules } from 'element-plus';
+import axios from 'axios';
 
 const registerUser = ref<registerType>({
     name: 'tester',
@@ -96,9 +97,10 @@ const rules = reactive<FormRules>({
 
 const submitForm = async (formEl: FormInstance | undefined) => {
     if (!formEl) return;
-    await formEl.validate((valid, fields) => {
+    await formEl.validate(async (valid, fields) => {
         if (valid) {
-            console.log('submit!');
+            const { data } = await axios.post('api/users/register', registerUser.value);
+            console.log('data', data);
         } else {
             console.log('error submit!', fields);
         }

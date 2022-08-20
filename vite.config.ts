@@ -14,5 +14,10 @@ export default defineConfig({
         Components({
             resolvers: [ElementPlusResolver()]
         })
-    ]
+    ],
+    server: {
+        proxy: {
+            '/api': 'https://thenewstep-system.herokuapp.com'
+        }
+    }
 });
