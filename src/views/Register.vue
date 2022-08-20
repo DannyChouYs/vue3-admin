@@ -3,21 +3,27 @@
         <section class="form-container">
             <div class="manage-tip">
                 <span class="title">後台管理系統</span>
-                <el-form v-model="registerUser" class="registerForm" label-width="80px">
-                    <el-form-item label="用户名" prop="name">
-                        <el-input v-model="registerUser.name" placeholder="请输入用户名"></el-input>
+                <el-form
+                    ref="ruleFormRef"
+                    :model="registerUser"
+                    :rules="rules"
+                    class="registerForm"
+                    label-width="120px"
+                >
+                    <el-form-item label="用戶名" prop="name">
+                        <el-input v-model="registerUser.name" placeholder="請輸入用戶名"></el-input>
                     </el-form-item>
-                    <el-form-item label="邮箱" prop="email">
-                        <el-input v-model="registerUser.email" placeholder="请输入邮箱"></el-input>
+                    <el-form-item label="電子郵件信箱" prop="email">
+                        <el-input v-model="registerUser.email" placeholder="請輸入電子郵件信箱"></el-input>
                     </el-form-item>
-                    <el-form-item label="密码" prop="password">
-                        <el-input v-model="registerUser.password" placeholder="请输入密码" type="password"></el-input>
+                    <el-form-item label="密碼" prop="password">
+                        <el-input v-model="registerUser.password" placeholder="請輸入密碼" type="password"></el-input>
                     </el-form-item>
-                    <el-form-item label="确认密码" prop="password2">
-                        <el-input v-model="registerUser.password2" placeholder="请确认密码" type="password"></el-input>
+                    <el-form-item label="確認密碼" prop="password2">
+                        <el-input v-model="registerUser.password2" placeholder="請確認密碼" type="password"></el-input>
                     </el-form-item>
-                    <el-form-item label="选择身份">
-                        <el-select v-model="registerUser.identity" placeholder="选择身份">
+                    <el-form-item label="選擇登入身份">
+                        <el-select v-model="registerUser.identity" placeholder="選擇身份">
                             <el-option label="管理員" value="manager"></el-option>
                             <el-option label="員工" value="employee"></el-option>
                         </el-select>
@@ -33,15 +39,58 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, reactive } from 'vue';
 import { registerType } from '../utils/types';
+import type { FormInstance, FormRules } from 'element-plus';
+
 const registerUser = ref<registerType>({
-    name: 'Danny',
-    email: '27732357@qq.com',
-    password: '321321',
-    password2: '321321',
+    name: 'tester',
+    email: 'test@example.com',
+    password: '123456',
+    password2: '123456',
     identity: '管理員'
 });
+
+// 表單驗證
+const ruleFormRef = ref<FormInstance>();
+
+const validatePass2 = (rule: any, value: any, callback: any) => {
+    if (value === '') {
+        callback(new Error('請再次輸入密碼'));
+    } else if (value !== registerUser.value.password) {
+        callback(new Error('兩次密碼不一致'));
+    } else {
+        callback();
+    }
+};
+
+const rules = reactive<FormRules>({
+    name: [
+        { required: true, message: '用戶名不能為空', trigger: 'change' },
+        { min: 3, max: 30, message: '用戶名長度2~30字元之間', trigger: 'blur' }
+    ],
+    email: [
+        {
+            required: true,
+            type: 'email',
+            message: '電子郵件格式錯誤',
+            trigger: 'blur'
+        }
+    ],
+    password: [
+        {
+            required: true,
+            message: '密碼不能為空',
+            trigger: 'blur'
+        },
+        { min: 6, max: 30, message: '密碼長度6~30字元之間', trigger: 'blur' }
+    ],
+    password2: [
+        { min: 6, max: 30, message: '密碼長度6~30字元之間', trigger: 'blur' },
+        { validator: validatePass2, trigger: 'blur' }
+    ]
+});
+
 const handleSubmit = () => {
     console.log(registerUser.value);
 };
