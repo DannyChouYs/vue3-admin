@@ -30,7 +30,10 @@
                     </el-form-item>
 
                     <el-form-item>
-                        <el-button @click="handleSubmit" class="submit-btn">註冊</el-button>
+                        <div class="register-btn">
+                            <el-button @click="submitForm(ruleFormRef)" class="submit-btn">註冊</el-button>
+                            <el-button @click="resetForm(ruleFormRef)" class="reset-btn">取消</el-button>
+                        </div>
                     </el-form-item>
                 </el-form>
             </div>
@@ -91,8 +94,20 @@ const rules = reactive<FormRules>({
     ]
 });
 
-const handleSubmit = () => {
-    console.log(registerUser.value);
+const submitForm = async (formEl: FormInstance | undefined) => {
+    if (!formEl) return;
+    await formEl.validate((valid, fields) => {
+        if (valid) {
+            console.log('submit!');
+        } else {
+            console.log('error submit!', fields);
+        }
+    });
+};
+
+const resetForm = (formEl: FormInstance | undefined) => {
+    if (!formEl) return;
+    formEl.resetFields();
 };
 </script>
 
@@ -127,7 +142,13 @@ const handleSubmit = () => {
     border-radius: 5px;
     box-shadow: 0px 5px 10px #cccc;
 }
-.submit-btn {
+.register-btn {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+.submit-btn,
+.reset-btn {
     width: 100%;
 }
 </style>
