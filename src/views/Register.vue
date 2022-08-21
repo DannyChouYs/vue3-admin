@@ -35,6 +35,9 @@
                             <el-button @click="resetForm(ruleFormRef)" class="reset-btn">取消</el-button>
                         </div>
                     </el-form-item>
+                    <div class="tiparea">
+                        <p>已有帳號？ 轉跳<router-link to="/login">登入頁面</router-link></p>
+                    </div>
                 </el-form>
             </div>
         </section>
@@ -129,44 +132,4 @@ const resetForm = (formEl: FormInstance | undefined) => {
 };
 </script>
 
-<style>
-.register {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    background: url(../assets/bg.jpg) no-repeat center center;
-    background-size: 100% 100%;
-}
-.form-container {
-    width: 370px;
-    height: 210px;
-    position: absolute;
-    top: 10%;
-    left: 34%;
-    padding: 25px;
-    border-radius: 5px;
-    text-align: center;
-}
-.form-container .manage-tip .title {
-    font-family: 'Microsoft YaHei';
-    font-weight: bold;
-    font-size: 26px;
-    color: #fff;
-}
-.registerForm {
-    margin-top: 20px;
-    background-color: #fff;
-    padding: 20px 40px 20px 20px;
-    border-radius: 5px;
-    box-shadow: 0px 5px 10px #cccc;
-}
-.register-btn {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-}
-.submit-btn,
-.reset-btn {
-    width: 100%;
-}
-</style>
+<style scoped></style>

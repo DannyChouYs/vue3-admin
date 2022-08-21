@@ -5,3 +5,8 @@ export interface registerType {
     password2: string;
     identity: string;
 }
+
+export interface loginType {
+    email: string;
+    password: string;
+}
