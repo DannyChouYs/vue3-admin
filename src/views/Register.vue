@@ -49,7 +49,7 @@ import { ref, reactive } from 'vue';
 import { registerType } from '../utils/types';
 import type { FormInstance, FormRules } from 'element-plus';
 import { ElMessage } from 'element-plus';
-import axios from 'axios';
+import axios from '../utils/http';
 import { useRouter } from 'vue-router';
 
 const router = useRouter();
