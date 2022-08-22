@@ -34,8 +34,10 @@ import { ElMessage } from 'element-plus';
 import axios from '../utils/http';
 import { useRouter } from 'vue-router';
 import jwt_decode from 'jwt-decode';
+import { useAuthStore } from '../store';
 
 const router = useRouter();
+const store = useAuthStore();
 
 const loginUser = ref<loginType>({
     email: 'test@example.com',
@@ -78,6 +80,10 @@ const submitForm = async (formEl: FormInstance | undefined) => {
                 // 解析token
                 const decode = jwt_decode(token);
                 console.log('decode', decode);
+
+                // 存入全局狀態
+                store.setAuth(!!decode);
+                store.setUser(decode);
 
                 ElMessage({
                     message: '登入成功',

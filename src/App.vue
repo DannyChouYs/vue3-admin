@@ -1,4 +1,19 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { watchEffect } from 'vue';
+import jwt_decode from 'jwt-decode';
+import { useAuthStore } from './store';
+
+const store = useAuthStore();
+
+// 每次刷新，都會去檢查localStorage.token，並存入全局狀態
+watchEffect(() => {
+    if (localStorage.token) {
+        const decode = jwt_decode(localStorage.token);
+        store.setAuth(!!decode);
+        store.setUser(decode);
+    }
+});
+</script>
 
 <template>
     <router-view></router-view>
