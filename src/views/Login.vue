@@ -33,6 +33,7 @@ import type { FormInstance, FormRules } from 'element-plus';
 import { ElMessage } from 'element-plus';
 import axios from '../utils/http';
 import { useRouter } from 'vue-router';
+import jwt_decode from 'jwt-decode';
 
 const router = useRouter();
 
@@ -68,13 +69,16 @@ const submitForm = async (formEl: FormInstance | undefined) => {
     await formEl.validate(async (valid, fields) => {
         if (valid) {
             const data = await axios.post('api/users/login', loginUser.value);
-            const success = data.data.success;
-            const token = data.data.token;
+            // 解構賦值的寫法{ success, token }
+            const { success, token } = data.data;
+            // const token = data.data.token;
 
             if (success && token) {
-                console.log('success', success);
-                console.log('token', token);
                 localStorage.setItem('token', token);
+                // 解析token
+                const decode = jwt_decode(token);
+                console.log('decode', decode);
+
                 ElMessage({
                     message: '登入成功',
                     type: 'success'
