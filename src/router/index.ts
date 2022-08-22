@@ -28,4 +28,16 @@ const router = createRouter({
     routes
 });
 
+// 路由守衛
+router.beforeEach((to, from, next) => {
+    // 確認瀏覽器本地端是否有token
+    const isLogin: boolean = localStorage.token ? true : false;
+    // 登入、註冊頁面不需要token都可以進入
+    if (to.path === '/login' || to.path === '/register') {
+        next();
+    } else {
+        isLogin ? next() : next('/login');
+    }
+});
+
 export default router;
