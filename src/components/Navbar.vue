@@ -13,14 +13,14 @@
                         <p class="content username">丹尼</p>
                     </div>
                     <span class="dropdown">
-                        <el-dropdown @click="handleDropdown">
+                        <el-dropdown trigger="click" @command="handleDropdown">
                             <span class="el-dropdown-link">
                                 <el-icon><ArrowDown /></el-icon>
                             </span>
                             <template #dropdown>
                                 <el-dropdown-menu>
-                                    <el-dropdown-item>個人信息</el-dropdown-item>
-                                    <el-dropdown-item divided>退出</el-dropdown-item>
+                                    <el-dropdown-item command="info">個人信息</el-dropdown-item>
+                                    <el-dropdown-item command="logout" divided>退出</el-dropdown-item>
                                 </el-dropdown-menu>
                             </template>
                         </el-dropdown>
@@ -33,8 +33,33 @@
 
 <script setup lang="ts">
 import { ArrowDown } from '@element-plus/icons-vue';
-const handleDropdown = () => {
-    console.log('test');
+import { useAuthStore } from '../store';
+import router from '../router';
+
+const store = useAuthStore();
+
+const handleDropdown = (item: string) => {
+    switch (item) {
+        case 'info':
+            showUserInfo();
+            break;
+        case 'logout':
+            logout();
+            break;
+    }
+};
+
+const showUserInfo = () => {
+    console.log('info1');
+};
+
+const logout = () => {
+    localStorage.removeItem('token');
+
+    store.setAuth(false);
+    store.setUser(null);
+
+    router.push('/login');
 };
 </script>
 

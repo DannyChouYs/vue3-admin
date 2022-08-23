@@ -28,7 +28,7 @@
 
 <script setup lang="ts">
 import { ref, reactive } from 'vue';
-import { loginType } from '../utils/types';
+import { loginType, userType } from '../utils/types';
 import type { FormInstance, FormRules } from 'element-plus';
 import { ElMessage } from 'element-plus';
 import axios from '../utils/http';
@@ -78,7 +78,7 @@ const submitForm = async (formEl: FormInstance | undefined) => {
             if (success && token) {
                 localStorage.setItem('token', token);
                 // 解析token
-                const decode = jwt_decode(token);
+                const decode: userType = jwt_decode(token);
                 console.log('decode', decode);
 
                 // 存入全局狀態
