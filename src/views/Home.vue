@@ -1,5 +1,7 @@
 <template>
-    <div>初始化頁面</div>
+    <div class="index">
+        <Navbar />
+    </div>
     <el-button @click="logout">登出</el-button>
 </template>
 
@@ -7,6 +9,7 @@
 import { onMounted } from 'vue';
 import axios from '../utils/http';
 import { useRouter } from 'vue-router';
+import Navbar from '../components/Navbar.vue';
 
 const router = useRouter();
 
