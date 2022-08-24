@@ -1,6 +1,7 @@
 <template>
-    <div class="index">
+    <div class="home">
         <Navbar />
+        <router-view></router-view>
     </div>
     <el-button @click="logout">登出</el-button>
 </template>
@@ -28,4 +29,10 @@ function logout() {
 }
 </script>
 
-<style></style>
+<style scoped>
+.home {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+</style>
