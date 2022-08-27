@@ -54,6 +54,7 @@ const handleDropdown = (item: string) => {
 
 const showUserInfo = () => {
     console.log('info1');
+    router.push('/userinfo');
 };
 
 const logout = () => {
