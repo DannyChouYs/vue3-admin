@@ -13,7 +13,7 @@
 .index {
     width: 100%;
     height: 100%;
-    background: url(../assets/sakiphotoPAR539051106_TP_V4.jpg) no-repeat;
+    background: url(../assets/gori0I9A3007072101709_TP_V.jpg) no-repeat;
     background-size: 100% 100%;
 }
 .container {
