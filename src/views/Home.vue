@@ -1,6 +1,7 @@
 <template>
     <div class="home">
         <Navbar />
+        <Sidebar />
         <router-view></router-view>
     </div>
     <el-button @click="logout">登出</el-button>
@@ -11,6 +12,7 @@ import { onMounted } from 'vue';
 import axios from '../utils/http';
 import { useRouter } from 'vue-router';
 import Navbar from '../components/Navbar.vue';
+import Sidebar from '../components/Sidebar.vue';
 
 const router = useRouter();
 
