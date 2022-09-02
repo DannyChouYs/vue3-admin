@@ -19,16 +19,17 @@
                         <span>資金管理</span>
                     </template>
                     <el-menu-item-group>
-                        <el-menu-item index="1-1">資金管理</el-menu-item>
+                        <el-menu-item index="2-1">資金管理</el-menu-item>
+                        <el-menu-item index="2-2">賺錢密技</el-menu-item>
                     </el-menu-item-group>
                 </el-sub-menu>
-                <el-sub-menu index="2">
+                <el-sub-menu index="3">
                     <template #title>
                         <!-- <el-icon><location /></el-icon> -->
                         <span>訊息管理</span>
                     </template>
                     <el-menu-item-group>
-                        <el-menu-item index="1-1">個人訊息</el-menu-item>
+                        <el-menu-item index="3-1">個人訊息</el-menu-item>
                     </el-menu-item-group>
                 </el-sub-menu>
             </el-menu>
