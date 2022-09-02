@@ -10,34 +10,50 @@
                 text-color="#fff"
             >
                 <el-menu-item index="1">
-                    <!-- <el-icon><icon-menu /></el-icon> -->
+                    <el-icon><HomeFilled /></el-icon>
                     <span>首頁</span>
                 </el-menu-item>
-                <el-sub-menu index="2">
-                    <template #title>
-                        <!-- <el-icon><location /></el-icon> -->
-                        <span>資金管理</span>
-                    </template>
-                    <el-menu-item-group>
-                        <el-menu-item index="2-1">資金管理</el-menu-item>
-                        <el-menu-item index="2-2">賺錢密技</el-menu-item>
-                    </el-menu-item-group>
-                </el-sub-menu>
-                <el-sub-menu index="3">
-                    <template #title>
-                        <!-- <el-icon><location /></el-icon> -->
-                        <span>訊息管理</span>
-                    </template>
-                    <el-menu-item-group>
-                        <el-menu-item index="3-1">個人訊息</el-menu-item>
-                    </el-menu-item-group>
-                </el-sub-menu>
+                <template v-for="menu in menus" :key="menu.path">
+                    <el-sub-menu v-if="menu.children" :index="menu.path">
+                        <template #title>
+                            <el-icon>
+                                <component :is="menu.icon"></component>
+                            </el-icon>
+                            <span>{{ menu.name }}</span>
+                        </template>
+                        <el-menu-item-group>
+                            <el-menu-item v-for="(item, index) in menu.children" :key="index" :index="item.path">{{
+                                item.name
+                            }}</el-menu-item>
+                        </el-menu-item-group>
+                    </el-sub-menu>
+                </template>
             </el-menu>
         </el-col>
     </el-row>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { ref } from 'vue';
+
+const menus = ref([
+    {
+        icon: 'Money',
+        name: '資金管理',
+        path: 'fund',
+        children: [
+            { path: 'fundList', name: '資金流水' },
+            { path: 'bigMoney', name: '賺錢密技' }
+        ]
+    },
+    {
+        icon: 'InfoFilled',
+        name: '信息管理',
+        path: 'info',
+        children: [{ path: 'infoshow', name: '個人信息' }]
+    }
+]);
+</script>
 
 <style scoped>
 .menu-container {
@@ -63,6 +79,7 @@
 }
 .el-sub-menu .el-menu-item {
     min-width: 180px;
+    padding-left: 48px !important;
 }
 .hiddenDropdown,
 .hiddenDropname {
