@@ -9,10 +9,12 @@
                 default-active="1"
                 text-color="#fff"
             >
-                <el-menu-item index="1">
-                    <el-icon><HomeFilled /></el-icon>
-                    <span>首頁</span>
-                </el-menu-item>
+                <router-link to="/">
+                    <el-menu-item index="1">
+                        <el-icon><HomeFilled /></el-icon>
+                        <span>首頁</span>
+                    </el-menu-item>
+                </router-link>
                 <template v-for="menu in menus" :key="menu.path">
                     <el-sub-menu v-if="menu.children" :index="menu.path">
                         <template #title>
@@ -22,9 +24,9 @@
                             <span>{{ menu.name }}</span>
                         </template>
                         <el-menu-item-group>
-                            <el-menu-item v-for="(item, index) in menu.children" :key="index" :index="item.path">{{
-                                item.name
-                            }}</el-menu-item>
+                            <router-link v-for="(item, index) in menu.children" :key="index" :to="item.path">
+                                <el-menu-item :index="item.path">{{ item.name }}</el-menu-item>
+                            </router-link>
                         </el-menu-item-group>
                     </el-sub-menu>
                 </template>
@@ -50,7 +52,7 @@ const menus = ref([
         icon: 'InfoFilled',
         name: '信息管理',
         path: 'info',
-        children: [{ path: 'infoshow', name: '個人信息' }]
+        children: [{ path: 'userInfo', name: '個人信息' }]
     }
 ]);
 </script>
