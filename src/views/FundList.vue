@@ -1,5 +1,12 @@
 <template>
     <div class="fillcontain">
+        <div>
+            <el-form :inline="true">
+                <el-form-item class="btn-right">
+                    <el-button type="primary" size="small" @click="handleAdd">新增</el-button>
+                </el-form-item>
+            </el-form>
+        </div>
         <el-table :data="tableData" style="width: 100%" max-height="450" border v-if="tableData.length > 0">
             <el-table-column type="index" label="序號" align="center" width="70" />
             <el-table-column label="時間" align="center" prop="date">
@@ -62,6 +69,10 @@ function handleEdit(item: any) {
 
 function handleDelete(index: any, item: any) {
     console.log(index, item);
+}
+
+function handleAdd() {
+    console.log('test');
 }
 // watchEffect(() => {
 //     getProfiles();
