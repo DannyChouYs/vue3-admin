@@ -3,6 +3,7 @@
         <Navbar />
         <Sidebar />
         <div class="container-right">
+            <!-- 主要畫面渲染 -->
             <router-view></router-view>
         </div>
     </div>
