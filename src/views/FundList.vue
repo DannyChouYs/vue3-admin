@@ -48,13 +48,18 @@
             </el-table-column>
         </el-table>
     </div>
+    <!-- closeDialog為子元件傳過來的事件名稱 -->
+    <DialogModal :show="show" @closeDialog="emitCloseDialog" />
 </template>
 
 <script setup lang="ts">
-import { ref, watchEffect } from 'vue';
+import { ref } from 'vue';
 import axios from '../utils/http';
+import DialogModal from '../components/DialogModal.vue';
 
 const tableData = ref([]);
+
+const show = ref(false);
 
 const getProfiles = async () => {
     const { data } = await axios('/api/profiles');
@@ -72,11 +77,12 @@ function handleDelete(index: any, item: any) {
 }
 
 function handleAdd() {
-    console.log('test');
+    show.value = true;
 }
-// watchEffect(() => {
-//     getProfiles();
-// });
+
+function emitCloseDialog(value: boolean) {
+    show.value = value;
+}
 </script>
 
 <style scoped>
