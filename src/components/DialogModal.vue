@@ -1,31 +1,34 @@
 <template>
     <el-dialog v-model="show" title="添加收支訊息" :before-close="emitHandleClose">
-        <el-form ref="form" label-width="120px" style="margin: 10px">
+        <el-form :model="formData" ref="form" label-width="120px" style="margin: 10px">
             <el-form-item label="收支類型">
-                <el-select placeholder="收支类型">
-                    <el-option>现金</el-option>
-                    <el-option>微信</el-option>
-                    <el-option>支付宝</el-option>
+                <el-select v-model="formData.type" placeholder="收支类型">
+                    <el-option
+                        v-for="(formType, index) in typeList"
+                        :key="index"
+                        :label="formType"
+                        :value="formType"
+                    ></el-option>
                 </el-select>
             </el-form-item>
             <el-form-item prop="describe" label="收支描述">
-                <el-input></el-input>
+                <el-input v-model="formData.describe"></el-input>
             </el-form-item>
             <el-form-item prop="income" label="收入">
-                <el-input></el-input>
+                <el-input v-model="formData.income"></el-input>
             </el-form-item>
             <el-form-item prop="expend" label="支出">
-                <el-input></el-input>
+                <el-input v-model="formData.expend"></el-input>
             </el-form-item>
             <el-form-item prop="cash" label="帳戶現金">
-                <el-input></el-input>
+                <el-input v-model="formData.cash"></el-input>
             </el-form-item>
             <el-form-item label="備註">
-                <el-input></el-input>
+                <el-input v-model="formData.remark"></el-input>
             </el-form-item>
             <el-form-item class="text-right">
                 <el-button>取消</el-button>
-                <el-button type="primary">提交</el-button>
+                <el-button type="primary" @click="handleSubmit">提交</el-button>
             </el-form-item>
         </el-form>
     </el-dialog>
@@ -56,6 +59,21 @@ const emits = defineEmits<{
 const emitHandleClose = () => {
     // 傳送事件名稱為closeDialog，並且攜帶數值出去為false
     emits('closeDialog', false);
+};
+
+const typeList = ref(['現金', '微信', '支付寶']);
+const form = ref({});
+const formData = ref({
+    type: '現金',
+    describe: '購買課程',
+    income: '1580',
+    expend: '158',
+    cash: '2000',
+    remark: '提升技能'
+});
+
+const handleSubmit = () => {
+    console.log(formData.value);
 };
 </script>
 
