@@ -1,12 +1,33 @@
 <template>
     <el-dialog v-model="show" title="添加收支訊息" :before-close="emitHandleClose">
-        <span>This is a message</span>
-        <template #footer>
-            <span class="dialog-footer">
+        <el-form ref="form" label-width="120px" style="margin: 10px">
+            <el-form-item label="收支類型">
+                <el-select placeholder="收支类型">
+                    <el-option>现金</el-option>
+                    <el-option>微信</el-option>
+                    <el-option>支付宝</el-option>
+                </el-select>
+            </el-form-item>
+            <el-form-item prop="describe" label="收支描述">
+                <el-input></el-input>
+            </el-form-item>
+            <el-form-item prop="income" label="收入">
+                <el-input></el-input>
+            </el-form-item>
+            <el-form-item prop="expend" label="支出">
+                <el-input></el-input>
+            </el-form-item>
+            <el-form-item prop="cash" label="帳戶現金">
+                <el-input></el-input>
+            </el-form-item>
+            <el-form-item label="備註">
+                <el-input></el-input>
+            </el-form-item>
+            <el-form-item class="text-right">
                 <el-button>取消</el-button>
-                <el-button type="primary">確定</el-button>
-            </span>
-        </template>
+                <el-button type="primary">提交</el-button>
+            </el-form-item>
+        </el-form>
     </el-dialog>
 </template>
 
